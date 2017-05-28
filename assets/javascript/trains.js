@@ -31,7 +31,7 @@ var config = {
 
   var database = firebase.database();
 
-$("#run-submit-btn").on("click", function(event) {
+$("#run-submit").on("click", function(event) {
 	event.preventDefault();
 
 	var trainName = $("#train-name").val().trim();
@@ -63,7 +63,7 @@ database.ref().on("child_added", function(childSnapshot, prevChildKey) {
 	var arrivalTime = childSnapshot.val().arrive;
 	var trainFrequency = childSnapshot.val().frequency;
 
-/* missing js for translating next arrival from arrivalTima. Also, change the var for the table data */
+
 	var arrivalTimeConverted = moment(arrivalTime, "hh:mm").subtract(1, "years");
 	var currentTime = moment();
 	var diffTime = moment().diff(moment(arrivalTimeConverted), "minutes")
