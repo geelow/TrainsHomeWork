@@ -1,0 +1,36 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(90deg, #b6eae1 10%, #D2FBAD 90%);
+    min-height: 100vh;
+    height: 100%;
+    width: 100%;
+    font-family: Lato;
+}
+
+.container {
+    width: 100%;
+}
+
+.header {
+    background-color: transparent;
+}
+
+#run-submit {
+    padding: 10px;
+    background-color: transparent;
+    color: black;
+    border: 1px solid black;
+    border-radius: 50px;
+    width: 150px;
+    transition: color 150ms ease-in-out, border 150ms ease-in-out;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 1024px) {
+    #giphy-results {
+        justify-content: center;
+    }
+}
