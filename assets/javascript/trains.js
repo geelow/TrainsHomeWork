@@ -22,7 +22,7 @@ $("#run-submit").on("click", function(event) {
 
 	var trainName = $("#train-name").val().trim();
 	var destination = $("#destination").val().trim();
-	var arrivalTime = moment($("#arrival-time").val().trim(), "HH:mm").subtract(10, "years").format("X");
+	var arrivalTime = moment($("#arrival-time").val().trim(), "HH:mm").subtract(1, "years").format("X");
 	var trainFrequency = $("#train-frequency").val().trim();
 
 var newTrain = {
