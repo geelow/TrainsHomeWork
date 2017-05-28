@@ -64,7 +64,7 @@ database.ref().on("child_added", function(childSnapshot, prevChildKey) {
 	var trainFrequency = childSnapshot.val().frequency;
 
 	var frqncy = moment(trainFrequency, "minutes");
-	var arrivalTimeConverted = moment(arrivalTime, "hh:mm:ss a").subtract(1, "years");
+	var arrivalTimeConverted = moment(arrivalTime, "hh:mm:ss a");
 	var currentTime = moment();
 	var diffTime = moment().diff(moment(arrivalTimeConverted), "minutes")
 	var timeApart = diffTime % trainFrequency;
