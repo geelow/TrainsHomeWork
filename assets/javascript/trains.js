@@ -1,18 +1,4 @@
-/* create a train schedule application that incorporates 
-Firebase to host arrival and departure data. 
-Your app will retrieve and manipulate this information 
-with Moment.js. This website will provide up-to-date 
-information about various trains, namely their arrival times
- and how many minutes remain until they arrive at their 
- station.
-
-* Make sure that your app suits this basic spec:
-  * When adding trains, administrators should be able to 
-  submit the following:
-    * Train Name
-    * Destination 
-    * First Train Time -- in military time
-    * Frequency -- in minutes
+/*
   * Code this app to calculate when the next train will 
   arrive; this should be relative to the current time.
   * Users from many different machines must be able to view same train times.
@@ -63,19 +49,19 @@ database.ref().on("child_added", function(childSnapshot, prevChildKey) {
 	var arrivalTime = childSnapshot.val().arrive;
 	var trainFrequency = childSnapshot.val().frequency;
 
-	var frqncy = moment(trainFrequency, "minutes");
-	var arrivalTimeConverted = moment(arrivalTime, "hh:mm:ss a");
+	var arrivalTimeConverted = moment(arrivalTime, "HH:mm a");
 	var currentTime = moment();
-	var diffTime = moment().diff(moment(arrivalTimeConverted), "minutes")
-	var timeApart = diffTime % trainFrequency;
+	var frequencyConverted = moment(trainFrequency, "HH:mm a");
+	var diff = currentTime - arrivalTimeConverted;
+	var timeApart = diff % frequencyConverted;
 
-	var minutesToNextTrain = trainFrequency - timeApart;
-	var nextTrain = moment().add(minutesToNextTrain, "minutes");
+	var minutesToNextTrain = frequencyConverted - timeApart;
+	var nextTrain = currentTime + minutesToNextTrain;
 
 
 
- $("#trains-table> tbody").append("<tr><td>" + trainName + "</td><td>" + destination + "</td><td>" +
-  nextTrain + "</td><td>" + frqncy + "<tr><td>" + minutesToNextTrain);
+ $("#trains-table> tbody").prepend("<tr><td>" + trainName + "</td><td>" + destination + "</td><td>" +
+  "every " + trainFrequency + " min" + "</td><td>" + nextTrain + "<tr><td>" + minutesToNextTrain);
 }, function(errorObject) {
       console.log("Errors handled: " + errorObject.code);
 });	
