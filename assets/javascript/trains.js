@@ -22,18 +22,18 @@ $("#run-submit").on("click", function(event) {
 
 	var trainName = $("#train-name").val().trim();
 	var destination = $("#destination").val().trim();
-	var arrivalTime = $("#arrival-time").val().trim();
+	var arrivalTime = moment($("#arrival-time").val().trim(), "HH:mm").subtract(10, "years").format("X");
 	var trainFrequency = $("#train-frequency").val().trim();
-
 
 var newTrain = {
 	name: trainName,
 	destination: destination,
 	arrive: arrivalTime,
 	frequency: trainFrequency
-};
+	};
 
 database.ref().push(newTrain);
+
 
 $("#train-name").val("");
 $("#destination").val("");
@@ -49,22 +49,16 @@ database.ref().on("child_added", function(childSnapshot, prevChildKey) {
 	var arrivalTime = childSnapshot.val().arrive;
 	var trainFrequency = childSnapshot.val().frequency;
 
-	var arrivalTimeConverted = moment(arrivalTime, "HH:mm a");
-	var currentTime = moment();
-	var frequencyConverted = moment(trainFrequency, "HH:mm a");
-	var diff = currentTime - arrivalTimeConverted;
-	var timeApart = diff % frequencyConverted;
-
-	var minutesToNextTrain = frequencyConverted - timeApart;
-	var nextTrain = currentTime + minutesToNextTrain;
-
+	var diffTimes = moment().diff(moment.unix(arrivalTime), "minutes");
+	var remainder = moment().diff(moment.unix(arrivalTime), "minutes") % trainFrequency ;
+	var minutes = trainFrequency - remainder;
+	var arrival = moment().add(minutes, "m").format("hh:mm A"); 
 
 
  $("#trains-table> tbody").prepend("<tr><td>" + trainName + "</td><td>" + destination + "</td><td>" +
-  "every " + trainFrequency + " min" + "</td><td>" + nextTrain + "<tr><td>" + minutesToNextTrain);
+  "every " + trainFrequency + " min" + "</td><td>" + arrival + "<tr><td>" + minutes);
 }, function(errorObject) {
       console.log("Errors handled: " + errorObject.code);
 });	
 
-
-
+	
