@@ -21,7 +21,7 @@ information about various trains, namely their arrival times
 
 var config = {
     apiKey: "AIzaSyA-14er7aI0Tn_q-ifNAYk9Dq07BK61b_g",
-    authDomain: "train-schedules-e1556.firebaseapp.com",
+    /*authDomain: "train-schedules-e1556.firebaseapp.com",(causing issues with Authentication)*/
     databaseURL: "https://train-schedules-e1556.firebaseio.com",
     projectId: "train-schedules-e1556",
     storageBucket: "train-schedules-e1556.appspot.com",
@@ -36,7 +36,7 @@ $("#run-submit").on("click", function(event) {
 
 	var trainName = $("#train-name").val().trim();
 	var destination = $("#destination").val().trim();
-	var arrivalTime = Moment($("#arrival-time").val().trim(), "HH:MM a").format("HH:MM:SS a");
+	var arrivalTime = $("#arrival-time").val().trim();
 	var trainFrequency = $("#train-frequency").val().trim();
 
 
@@ -63,7 +63,7 @@ database.ref().on("child_added", function(childSnapshot, prevChildKey) {
 	var arrivalTime = childSnapshot.val().arrive;
 	var trainFrequency = childSnapshot.val().frequency;
 
-
+	
 	var arrivalTimeConverted = moment(arrivalTime, "hh:mm").subtract(1, "years");
 	var currentTime = moment();
 	var diffTime = moment().diff(moment(arrivalTimeConverted), "minutes")
