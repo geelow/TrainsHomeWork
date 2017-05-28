@@ -23,11 +23,12 @@ body {
     padding: 10px;
     background-color: transparent;
     color: black;
-    border: 1px solid black;
+    border: 1px solid #B7DAF2;
     border-radius: 50px;
     width: 150px;
     transition: color 150ms ease-in-out, border 150ms ease-in-out;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 table {
