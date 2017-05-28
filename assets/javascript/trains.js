@@ -63,8 +63,8 @@ database.ref().on("child_added", function(childSnapshot, prevChildKey) {
 	var arrivalTime = childSnapshot.val().arrive;
 	var trainFrequency = childSnapshot.val().frequency;
 
-	
-	var arrivalTimeConverted = moment(arrivalTime, "hh:mm").subtract(1, "years");
+	var frqncy = moment(trainFrequency, "minutes");
+	var arrivalTimeConverted = moment(arrivalTime, "hh:mm:ss a").subtract(1, "years");
 	var currentTime = moment();
 	var diffTime = moment().diff(moment(arrivalTimeConverted), "minutes")
 	var timeApart = diffTime % trainFrequency;
@@ -75,7 +75,7 @@ database.ref().on("child_added", function(childSnapshot, prevChildKey) {
 
 
  $("#trains-table> tbody").append("<tr><td>" + trainName + "</td><td>" + destination + "</td><td>" +
-  nextTrain + "</td><td>" + trainFrequency) + "<tr><td>" + minutesToNextTrain;
+  nextTrain + "</td><td>" + frqncy + "<tr><td>" + minutesToNextTrain);
 }, function(errorObject) {
       console.log("Errors handled: " + errorObject.code);
 });	
