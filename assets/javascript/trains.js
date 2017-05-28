@@ -40,6 +40,8 @@ $("#destination").val("");
 $("#arrival-time").val("");
 $("#train-frequency").val("");
 
+return false;
+
 })  
 
 database.ref().on("child_added", function(childSnapshot, prevChildKey) {
