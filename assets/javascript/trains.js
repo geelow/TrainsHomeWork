@@ -53,12 +53,12 @@ database.ref().on("child_added", function(childSnapshot, prevChildKey) {
 
 	var diffTimes = moment().diff(moment.unix(arrivalTime), "minutes");
 	var remainder = moment().diff(moment.unix(arrivalTime), "minutes") % trainFrequency ;
-	var minutes = trainFrequency - remainder;
 	var arrival = moment().add(minutes, "m").format("hh:mm A"); 
+    var minutes = moment().get('hour') - remainder;
 
 
  $("#trains-table> tbody").prepend("<tr><td>" + trainName + "</td><td>" + destination + "</td><td>" +
-  "every " + trainFrequency + " min" + "</td><td>" + arrival + "<tr><td>" + minutes);
+  "every " + trainFrequency + " min" + "</td><td>" + arrival + "</td><td>" + minutes + " away" + "</td>");
 }, function(errorObject) {
       console.log("Errors handled: " + errorObject.code);
 });	
