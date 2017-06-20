@@ -52,9 +52,13 @@ database.ref().on("child_added", function(childSnapshot, prevChildKey) {
 	var trainFrequency = childSnapshot.val().frequency;
 
 	var diffTimes = moment().diff(moment.unix(arrivalTime), "minutes");
-	var remainder = moment().diff(moment.unix(arrivalTime), "minutes") % trainFrequency ;
+	var remainder = moment().diff(moment.unix(arrivalTime), "minutes") % trainFrequency;
+    
+    //arrival is currently only showing current time: Need time from last arrival + frequency minutes converted to hh:mm A format
 	var arrival = moment().add(minutes, "m").format("hh:mm A"); 
-    var minutes = moment().get('hour') - remainder;
+    
+    //minutes = current time - arrival time converted to minutes
+    var minutes = moment().get('hour') - remainder; 
 
 
  $("#trains-table> tbody").prepend("<tr><td>" + trainName + "</td><td>" + destination + "</td><td>" +
